@@ -14,6 +14,7 @@ public class Tests {
     private WebDriver driver;
     private HomePage homePage;
     private ProductDetailPage productDetailPage;
+    private CartPage cartpage;
 
     @BeforeTest(alwaysRun = true)
     public void setUp(){
@@ -22,6 +23,7 @@ public class Tests {
         homePage = new HomePage(driver);
         homePage.open();
         productDetailPage = new ProductDetailPage(driver);
+        cartpage = new CartPage(driver);
     }
 
     @Test
@@ -34,11 +36,13 @@ public class Tests {
                 "support@seleniumframework.com"));
     }
     @Test
-    public void removeItem() {
+    public void removeItem_test() {
         homePage.selectItem("Printed Summer Dress");
         productDetailPage.addProduct();
         Assert.assertTrue(productDetailPage.validateProductAdded());
         productDetailPage.closeWindows();
-
+        cartpage.goToCart();
+        cartpage.removeItem();
+        Assert.assertTrue(cartpage.validateCartEmpty());
     }
 }

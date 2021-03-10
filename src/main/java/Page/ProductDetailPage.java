@@ -22,6 +22,7 @@ public class ProductDetailPage extends Page{
     private final String phoneTxt = "#block_contact_infos > div > ul > li:nth-child(2)";
     private final String mailTxt = "#block_contact_infos > div > ul > li:nth-child(3)";
 
+
     public ProductDetailPage(final WebDriver driver){
 
         super(driver);
