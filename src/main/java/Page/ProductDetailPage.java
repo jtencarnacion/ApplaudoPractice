@@ -14,6 +14,8 @@ public class ProductDetailPage extends Page{
 
     @FindBy(xpath = "//span[contains(text(),'Add to cart')]")
     private WebElement addProductBtn;
+    @FindBy(xpath = "//*[@title='Close window']")
+    private WebElement closeWindowsBtn;
 
     private final String validation = "#layer_cart > div.clearfix";
     private final String addressTxt = "#block_contact_infos > div > ul > li:nth-child(1)";
@@ -30,6 +32,11 @@ public class ProductDetailPage extends Page{
     public void addProduct(){
         wait.ForElement(addProductBtn);
         addProductBtn.click();
+    }
+
+    public void closeWindows(){
+        wait.ForElement(closeWindowsBtn);
+        closeWindowsBtn.click();
     }
 
     public boolean validateProductAdded() {

@@ -33,5 +33,12 @@ public class Tests {
                 "Research Triangle Park, North Carolina, USA", "(347) 466-7432",
                 "support@seleniumframework.com"));
     }
+    @Test
+    public void removeItem() {
+        homePage.selectItem("Printed Summer Dress");
+        productDetailPage.addProduct();
+        Assert.assertTrue(productDetailPage.validateProductAdded());
+        productDetailPage.closeWindows();
 
+    }
 }
