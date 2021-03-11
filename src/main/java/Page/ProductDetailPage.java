@@ -42,24 +42,16 @@ public class ProductDetailPage extends Page{
 
     public boolean validateProductAdded() {
         wait.ForElement(driver.findElement(By.cssSelector(validation)));
-        if (driver.findElement(By.cssSelector(validation)).getText().contains("Product successfully added")) {
-            return true;
-        }else{
-            return false;
-        }
+        return driver.findElement(By.cssSelector(validation)).getText().contains("Product successfully added");
     }
 
-    public boolean validateStoreInformation(String address, String phone, String mail){
+    public boolean getStoreInformation(){
         ((JavascriptExecutor) driver)
                 .executeScript("window.scrollTo(0, document.body.scrollHeight)");
         wait.ForElement(driver.findElement(By.cssSelector(addressTxt)));
-        if (driver.findElement(By.cssSelector(addressTxt)).getText().contains(address)&&
-                driver.findElement(By.cssSelector(phoneTxt)).getText().contains(phone)&&
-                driver.findElement(By.cssSelector(mailTxt)).getText().contains(mail)){
-            System.out.println("Your test has been successfully");
-            return true;
-        }else{
-            return false;
-        }
+        return driver.findElement(By.cssSelector(addressTxt)).getText().contains("Selenium Framework, " +
+                "Research Triangle Park, North Carolina, USA") &&
+                driver.findElement(By.cssSelector(phoneTxt)).getText().contains("(347) 466-7432") &&
+                driver.findElement(By.cssSelector(mailTxt)).getText().contains("support@seleniumframework.com");
     }
 }

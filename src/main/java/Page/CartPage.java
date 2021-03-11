@@ -9,14 +9,14 @@ import org.openqa.selenium.support.FindBy;
 public class CartPage extends Page {
 
     private WebDriver driver;
-    private Wait wait;
+    private final Wait wait;
 
     @FindBy(xpath = "//a[@title='View my shopping cart']")
     private WebElement cartBtn;
     @FindBy(xpath = "//*[@class='icon-trash']")
     private WebElement removeBtn;
-
-    private final String validation = "#center_column > p";
+    @FindBy(xpath = "//p[@class='alert alert-warning']")
+     private WebElement validation;
 
 
     public CartPage(final WebDriver driver) {
@@ -36,11 +36,7 @@ public class CartPage extends Page {
     }
 
     public boolean validateCartEmpty() {
-        wait.ForElement(driver.findElement(By.cssSelector(validation)));
-        if (driver.findElement(By.cssSelector(validation)).getText().contains("Your shopping cart is empty.")) {
-            return true;
-        } else {
-            return false;
-        }
+        wait.ForElement(validation);
+        return driver.findElement(By.xpath("//p[@class='alert alert-warning']")).getText().contains("Your shopping cart is empty.");
     }
 }

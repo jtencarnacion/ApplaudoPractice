@@ -6,6 +6,10 @@
             <class name="Tests">
                 <methods>
                     <include name="addItem_test"></include>
+                    <include name="removeItem_test"></include>
+                    <include name="validateStoreInformation_test"></include>
+                    <include name="searchItem_test"></include>
+                    <include name="itemNotFound_test"></include>
                 </methods>
             </class>
         </classes>

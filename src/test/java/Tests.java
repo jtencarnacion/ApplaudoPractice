@@ -3,10 +3,7 @@ import Utils.BrowserConfig;
 import Utils.RandomHandler;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-
+import org.testng.annotations.*;
 
 
 public class Tests {
@@ -15,8 +12,9 @@ public class Tests {
     private HomePage homePage;
     private ProductDetailPage productDetailPage;
     private CartPage cartpage;
+    private SearchPage searchPage;
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         BrowserConfig browser = new BrowserConfig();
         this.driver = browser.getDriver();
@@ -24,6 +22,7 @@ public class Tests {
         homePage.open();
         productDetailPage = new ProductDetailPage(driver);
         cartpage = new CartPage(driver);
+        searchPage = new SearchPage(driver);
     }
 
     @Test
@@ -31,10 +30,8 @@ public class Tests {
         homePage.selectItem("Printed Summer Dress");
         productDetailPage.addProduct();
         Assert.assertTrue(productDetailPage.validateProductAdded());
-        Assert.assertTrue(productDetailPage.validateStoreInformation("Selenium Framework, " +
-                "Research Triangle Park, North Carolina, USA", "(347) 466-7432",
-                "support@seleniumframework.com"));
     }
+
     @Test
     public void removeItem_test() {
         homePage.selectItem("Printed Summer Dress");
@@ -44,5 +41,28 @@ public class Tests {
         cartpage.goToCart();
         cartpage.removeItem();
         Assert.assertTrue(cartpage.validateCartEmpty());
+    }
+
+    @Test
+    public void validateStoreInformation_test(){
+        Assert.assertTrue(productDetailPage.getStoreInformation());
+    }
+
+    @Test
+    public void searchItem_test(){
+        homePage.search("blouse");
+        Assert.assertTrue(searchPage.verifyItemFound());
+    }
+
+    @Test
+    public void itemNotFound_test(){
+        homePage.search("ItemNotFound");
+        Assert.assertTrue(searchPage.verifyItemNotFound());
+    }
+
+    @AfterMethod
+    public void close(){
+        driver.close();
+        driver.quit();
     }
 }
